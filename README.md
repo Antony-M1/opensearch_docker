@@ -28,3 +28,8 @@ You can stop, start, and restart your container by passing either the container 
 ```
 docker stop opensearch-node
 ```
+# .env
+this file is used to store the credentials, create a `.env` file and add the below options
+```env
+OPENSEARCH_INITIAL_ADMIN_PASSWORD=<YOUR_PASSWORD>
+```
