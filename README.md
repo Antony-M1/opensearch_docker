@@ -7,6 +7,13 @@ OpenSearch is a family of software consisting of a `search engine`, and `OpenSea
 * [Opensearch - Dockerhub](https://hub.docker.com/r/opensearchproject/opensearch)
 * [Sample docker-compose.yml](https://opensearch.org/samples/docker-compose.yml)
 * [Password Test](https://lowe.github.io/tryzxcvbn/)
+* [Dashboards Query Language (DQL)](https://opensearch.org/docs/2.16/dashboards/dql)
+* [Managing ML models in OpenSearch Dashboards](https://opensearch.org/docs/latest/ml-commons-plugin/ml-dashboard/)
+* [Opensearch - Langchain](https://python.langchain.com/v0.2/docs/integrations/vectorstores/opensearch/)
+
+**Python Packages**
+* [opensearch-py](https://pypi.org/project/opensearch-py/)
+* [langchain](https://pypi.org/project/langchain/)
 
 # How to use this image?
 **Run a single node for local development.**
