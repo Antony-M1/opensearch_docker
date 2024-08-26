@@ -17,3 +17,4 @@ docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" \
 docker run -it -p 9200:9200 -p 9600:9600 -e OPENSEARCH_INITIAL_ADMIN_PASSWORD=<strong-password> \
 -e "discovery.type=single-node"  --name opensearch-node opensearchproject/opensearch:latest
 ```
+**Send requests to the OpenSearch REST API to verify that OpenSearch is working.** By default, OpenSearch uses `self-signed TLS certificates`. The `-k` short option skips the certificate verification step so requests don't fail. The default username is admin and the password will be admin for OpenSearch 2.12 and earlier. For OpenSearch 2.12 and later, the password will be the custom value, which is required to be provided during the demo configuration setup for security plugin.
