@@ -5,6 +5,7 @@ OpenSearch is a family of software consisting of a `search engine`, and `OpenSea
 
 **Reference Links**
 * [Opensearch - Dockerhub](https://hub.docker.com/r/opensearchproject/opensearch)
+* [Sample docker-compose.yml](https://opensearch.org/samples/docker-compose.yml)
 
 # How to use this image?
 **Run a single node for local development.**
