@@ -9,7 +9,8 @@ OpenSearch is a family of software consisting of a `search engine`, and `OpenSea
 # How to use this image?
 **Run a single node for local development.**
 ```cmd
-docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" --name opensearch-node -d opensearchproject/opensearch:latest
+docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" \
+--name opensearch-node -d opensearchproject/opensearch:latest
 ```
 *Note: For OpenSearch 2.12 and later, a custom password for the admin user is required to be passed to set-up and utilize demo configuration.*
 ```cmd
