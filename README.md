@@ -6,6 +6,7 @@ OpenSearch is a family of software consisting of a `search engine`, and `OpenSea
 **Reference Links**
 * [Opensearch - Dockerhub](https://hub.docker.com/r/opensearchproject/opensearch)
 * [Sample docker-compose.yml](https://opensearch.org/samples/docker-compose.yml)
+* [Password Test](https://lowe.github.io/tryzxcvbn/)
 
 # How to use this image?
 **Run a single node for local development.**
@@ -33,3 +34,26 @@ this file is used to store the credentials, create a `.env` file and add the bel
 ```env
 OPENSEARCH_INITIAL_ADMIN_PASSWORD=<YOUR_PASSWORD>
 ```
+
+# Quick Start
+
+### Step 1 : Clone the repository
+```cmd
+git clone https://github.com/Antony-M1/opensearch_docker.git
+```
+
+### Step 2 : Up the container
+```cmd
+export OPENSEARCH_INITIAL_ADMIN_PASSWORD=Dragon@75845567
+```
+Username : `admin`
+
+Password : `Dragon@75845567`
+
+```
+docker compose up -d
+```
+
+### Step 3 : Login Page
+
+Go to this url [0.0.0.0:5601](http://0.0.0.0:5601/) and login with username and password.
