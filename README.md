@@ -64,3 +64,60 @@ docker compose up -d
 ### Step 3 : Login Page
 
 Go to this url [0.0.0.0:5601](http://0.0.0.0:5601/) and login with username and password.
+
+# Response Explanation
+
+<details>
+  <summary><b>took</b></summary>
+
+  The `took` field in the OpenSearch response indicates the amount of time (in milliseconds) that the server took to process the query. In your example, `"took": 2` means that the search query took 2 milliseconds to complete. This value helps gauge the performance of your search query execution.
+</details>
+
+<details>
+  <summary><b>timed_out</b></summary>
+
+
+  The `timed_out` field in the OpenSearch response indicates whether the search query timed out. 
+
+- If `"timed_out": false`, it means the query completed within the allowed time.
+- If `"timed_out": true`, it means the query took longer than the specified timeout duration and did not complete within that time frame.
+
+A timeout could occur if the query is too complex, the dataset is large, or the server is under heavy load.
+</details>
+
+
+<details>
+  <summary><b>_shards</b></summary>
+  
+  The `_shards` field in the OpenSearch response provides information about the status of the shards that were queried during the search. Shards are smaller portions of the entire index, which allow the system to parallelize the search.
+
+Here are the details:
+
+- **total**: The total number of shards that were involved in the search.
+- **successful**: The number of shards that successfully completed the search.
+- **skipped**: The number of shards that were skipped during the search (typically due to optimizations).
+- **failed**: The number of shards that encountered errors or failed during the search.
+
+In a typical response, all shards should be successful, meaning they returned data without issues. If there are failed shards, it might indicate issues like network failures, corrupted data, or heavy loads on specific nodes.
+</details>
+
+
+<details>
+  <summary><b>hits</b></summary>
+  
+  The `hits` field in the OpenSearch response contains the search results and associated metadata. Here's a breakdown of its components:
+
+- **total**: Contains the total number of documents that match the search query.
+  - **value**: The number of documents matching the query.
+  - **relation**: Indicates how the `value` should be interpreted (usually "eq" for an exact count).
+
+- **max_score**: The highest score among the search results. This score reflects the relevance of the documents to the search query, with higher scores indicating higher relevance.
+
+- **hits**: An array of documents that match the query. Each item in this array includes:
+  - **_index**: The name of the index where the document is stored.
+  - **_id**: The unique identifier of the document.
+  - **_score**: The relevance score of the document based on the query.
+  - **_source**: The actual content of the document. This is the data you indexed and queried against.
+
+This field provides the detailed results of your search query, including the documents that matched, their relevance scores, and their metadata.
+</details>
