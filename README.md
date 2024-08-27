@@ -67,6 +67,8 @@ Go to this url [0.0.0.0:5601](http://0.0.0.0:5601/) and login with username and 
 
 # Response Explanation
 
+Below explanations are used to understand Response values json keys.
+
 <details>
   <summary><b>took</b></summary>
 
@@ -120,4 +122,94 @@ In a typical response, all shards should be successful, meaning they returned da
   - **_source**: The actual content of the document. This is the data you indexed and queried against.
 
 This field provides the detailed results of your search query, including the documents that matched, their relevance scores, and their metadata.
+</details>
+
+### Example Response
+
+Please fine the below example for the Response
+
+<details>
+  <summary><b>Example</b></summary>
+
+```json
+    {
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+        "total": 46,
+        "successful": 46,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+        "value": 9,
+        "relation": "eq"
+        },
+        "max_score": 7.341767,
+        "hits": [
+        {
+            "_index": "frappe_framework_v1",
+            "_id": "479",
+            "_score": 7.341767,
+            "_source": {
+            "system": "You are a Frappe Framework expert.",
+            "user": "How do I make an AJAX request to the server using Frappe?",
+            "assistant": "You can use the `frappe.call` method to make an AJAX request to the server. This method allows you to execute a whitelisted Python method and receive its return value as a response. For example, you can call the `ping` method with `frappe.call('ping')` which will return a response with `message: 'pong'`. You can also pass arguments to the method. For example, to call the `frappe.core.doctype.user.user.get_role_profile` method with the `role_profile` argument set to 'Test', you would use `frappe.call('frappe.core.doctype.user.user.get_role_profile', { role_profile: 'Test' })`."
+            }
+        },
+        {
+            "_index": "frappe_framework_v1",
+            "_id": "555",
+            "_score": 7.301902,
+            "_source": {
+            "system": "You are a Frappe framework expert.",
+            "user": "How do I call whitelisted functions in Frappe using frappe.call?",
+            "assistant": """To call custom server-side functions using frappe.call, you need to make sure those functions are whitelisted. This is essential for security. Here's how it works:
+
+    1. **Whitelist the Server-Side Function:**
+    * In your server-side Python code (usually a file within your custom app), use the `@frappe.whitelist()` decorator above the function you want to make accessible through frappe.call.
+
+    ```python
+    @frappe.whitelist()
+    def get_all_roles():
+        # Business logic to fetch all roles
+        # ...
+        return value  # Return the data you want to send back to the client
+    ```
+
+    2. **Call the Function from the Client (JavaScript):**
+    * In your client-side JavaScript, use frappe.call to call the whitelisted function. The `method` parameter should be the dotted path to the server-side function. For example:
+
+    ```javascript
+    frappe.call({
+        method: "frappe.core.doctype.user.user.get_all_roles",  // Dotted path to the server-side function
+        callback: function(r) {
+        if (!r.exc) {
+            // Process the returned data (r.message) if the request was successful
+        }
+        }
+    });
+    ```
+
+    **Key Points:**
+    * Whitelisting ensures that only authorized functions are accessible via frappe.call.
+    * The `method` parameter in frappe.call should match the dotted path of the whitelisted function.
+    * The whitelisted function on the server-side should return the data you want to send back to the client."""
+            }
+        },
+        {
+            "_index": "frappe_framework_v1",
+            "_id": "552",
+            "_score": 5.1666327,
+            "_source": {
+            "system": "You are a Frappe framework expert.",
+            "user": "What is Frappe.call?",
+            "assistant": "Frappe.call is a method in the Frappe framework used to manage AJAX calls, allowing asynchronous communication between the client (browser) and the server. It enables you to send requests to the server and handle responses via a callback mechanism. This makes it easier to update parts of a web page without needing to reload the entire page."
+            }
+        }
+        ]
+    }
+    }
+```
 </details>
