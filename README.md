@@ -214,6 +214,44 @@ Please fine the below example for the Response
 ```
 </details>
 
+# FAQ
+<details>
+  <summary><b>What is the range of similarity scores in vector databases, and how are they interpreted?</b></summary>
+
+In vector databases, the concept of "score" typically refers to the similarity score between vectors. This score indicates how closely two vectors match, and the range of scores can depend on the specific similarity measure used. Here are common similarity measures and their scoring ranges:
+
+### 1. **Cosine Similarity:**
+   - **Range**: -1 to 1
+   - **Interpretation**: 
+     - **1** indicates perfect similarity (vectors are identical in direction).
+     - **-1** indicates perfect dissimilarity (vectors are diametrically opposed).
+     - **0** indicates no similarity (orthogonal vectors).
+
+### 2. **Euclidean Distance:**
+   - **Range**: 0 to ∞
+   - **Interpretation**:
+     - **0** indicates exact match (vectors are identical).
+     - Higher values indicate greater dissimilarity (larger distance between vectors).
+
+### 3. **Dot Product:**
+   - **Range**: -∞ to ∞
+   - **Interpretation**:
+     - Positive values indicate similarity (vectors are pointing in similar directions).
+     - Negative values indicate dissimilarity (vectors are pointing in opposite directions).
+
+### 4. **Manhattan Distance (L1 Norm):**
+   - **Range**: 0 to ∞
+   - **Interpretation**:
+     - **0** indicates exact match.
+     - Higher values indicate greater dissimilarity.
+
+### General Notes:
+- The maximum and minimum scores depend on the similarity or distance measure chosen and the characteristics of the vectors.
+- For many applications, scores are often normalized or transformed to fit within a specific range, like 0 to 1 or 0 to 100, depending on the database or application.
+
+When working with a vector database, it’s important to understand the scoring method being used to correctly interpret the results.
+</details>
+
 # Interview Questions
 
 <details>
