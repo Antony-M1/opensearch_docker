@@ -306,3 +306,9 @@ with collection.watch() as stream:
 
 This approach can help you maintain consistency between MongoDB and a vector database for hybrid applications involving both document and vector-based retrieval.
 </details>
+
+<details>
+  <summary><b>Example for real time sync</b></summary>
+
+In this file uploading system, once a file is successfully uploaded, it is read and divided into smaller chunks. These chunks are then processed and uploaded to a vector database for storage. The entire operation occurs asynchronously after the file upload, ensuring smooth user experience and efficient real-time processing of the file into a vectorized format. This approach helps in managing large files and enables efficient similarity search or retrieval in the vector database.
+</details>
