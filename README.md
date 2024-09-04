@@ -252,6 +252,30 @@ In vector databases, the concept of "score" typically refers to the similarity s
 When working with a vector database, it’s important to understand the scoring method being used to correctly interpret the results.
 </details>
 
+<details>
+  <summary><b>What are the key features of OpenSearch?</b></summary>
+  
+Key features include `full-text search`, `real-time indexing`, `scalability`, `distributed search`, and integration with various data visualization tools like `OpenSearch Dashboards`.
+</details>
+
+<details>
+  <summary><b>What is the difference between OpenSearch and Elasticsearch?</b></summary>
+
+  OpenSearch is a `fork` of `Elasticsearch` and `Kibana` (version 7.10.2) and is maintained by the OpenSearch community. It aims to provide similar functionalities but is open-source with a different licensing model.
+</details>
+
+<details>
+  <summary><b>How do vector databases handle high-dimensional data?</b></summary>
+
+  Vector databases use specialized indexing techniques such as `approximate nearest neighbor (ANN)` algorithms to efficiently search and retrieve high-dimensional vectors.
+</details>
+
+<details>
+  <summary><b>What are the common similarity measures used in vector databases?</b></summary>
+
+  Common similarity measures include `cosine similarity`, `Euclidean distance`, and `dot product`. Each measure quantifies the similarity or dissimilarity between vectors in different ways.
+</details>
+
 # Interview Questions
 
 <details>
