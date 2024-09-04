@@ -213,3 +213,96 @@ Please fine the below example for the Response
     }
 ```
 </details>
+
+# Interview Questions
+
+<details>
+  <summary><b>How a vectore database can sync each other with mongo DB</b></summary>
+
+Synchronizing a vector database with MongoDB can be accomplished by regularly updating both databases to keep the data consistent across them. Here's a typical approach for syncing:
+
+### 1. **Schema Mapping and Transformation:**
+   - **Vector Database**: These databases store embeddings or feature vectors, typically using data structures that allow efficient similarity searches (e.g., FAISS, Milvus, Pinecone).
+   - **MongoDB**: A document-based NoSQL database, which stores data in JSON-like BSON format.
+
+   To sync, the schema from MongoDB (usually documents) must be transformed into vectors to be inserted into the vector database. Similarly, the vector database data might need to be transformed into document-like structures to be pushed to MongoDB.
+
+### 2. **Data Transformation Logic:**
+   - Ingest MongoDB documents and convert certain fields into vector representations using an embedding model (e.g., Sentence Transformers, OpenAI, Hugging Face models).
+   - Insert these vectors into the vector database.
+   - Store a reference in MongoDB to the corresponding vector stored in the vector database (e.g., an ID).
+
+### 3. **Sync Strategies:**
+   There are different ways to keep MongoDB and the vector database in sync:
+   
+   - **Real-time Sync**:
+     - Use a change stream in MongoDB (available for replica sets or sharded clusters) to listen to real-time changes (insert, update, delete). Whenever a new document is inserted or updated, you can:
+       1. Extract the relevant fields.
+       2. Compute the embeddings (vectors) using a pre-trained model.
+       3. Insert/update the vector in the vector database and update the document in MongoDB with a reference to the vector.
+
+     MongoDB's [Change Streams](https://www.mongodb.com/docs/manual/changeStreams/) allow you to react to changes without polling.
+
+   - **Batch Sync**:
+     - Periodically batch sync documents from MongoDB to the vector database by:
+       1. Querying the documents added or modified since the last sync.
+       2. Computing vectors for new or updated documents.
+       3. Pushing the vectors to the vector database.
+     - You can schedule this using a cron job or other scheduling mechanisms.
+
+### 4. **Conflict Resolution:**
+   - Ensure that each system has a version control mechanism or timestamp field to resolve conflicts, ensuring that only the most up-to-date version of a document is kept.
+
+### 5. **APIs for Sync:**
+   - **MongoDB**: Use MongoDB drivers in Python, Node.js, or your preferred language to query data, retrieve change streams, and push updates.
+   - **Vector Database**: Depending on your choice (e.g., FAISS, Milvus, Pinecone), you can use the respective API to insert and update vectors.
+
+### Example: Real-Time Sync (with Change Streams)
+Here's a simplified Python example using MongoDB and a vector database (like Milvus or FAISS):
+
+```python
+from pymongo import MongoClient
+from transformers import AutoModel, AutoTokenizer
+import numpy as np
+from vector_db import VectorDB  # Placeholder for your vector database API
+
+# Initialize MongoDB and vector database
+client = MongoClient('mongodb://localhost:27017/')
+db = client['mydatabase']
+collection = db['mycollection']
+
+vector_db = VectorDB()
+
+# Load embedding model
+tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/all-mpnet-base-v2')
+model = AutoModel.from_pretrained('sentence-transformers/all-mpnet-base-v2')
+
+# Helper function to compute embeddings
+def compute_embedding(text):
+    inputs = tokenizer(text, return_tensors='pt', padding=True, truncation=True)
+    embeddings = model(**inputs).last_hidden_state.mean(dim=1)
+    return embeddings.detach().numpy()
+
+# Real-time sync with MongoDB change stream
+with collection.watch() as stream:
+    for change in stream:
+        if change['operationType'] == 'insert':
+            doc = change['fullDocument']
+            text = doc['text']  # Assuming you want to embed the 'text' field
+            embedding = compute_embedding(text)
+            
+            # Insert vector into vector database
+            vector_id = vector_db.insert(embedding)
+            
+            # Update MongoDB document with vector ID reference
+            collection.update_one({'_id': doc['_id']}, {'$set': {'vector_id': vector_id}})
+```
+
+### 6. **Two-Way Sync (Vector DB to MongoDB):**
+   - You can also reverse the sync, where changes in the vector database are pushed back to MongoDB. For example, if you're updating vector metadata in the vector database, you can propagate that to MongoDB.
+
+### 7. **Error Handling and Logging:**
+   - Ensure error handling is in place to manage any failures in syncing, and log all sync actions for debugging and monitoring.
+
+This approach can help you maintain consistency between MongoDB and a vector database for hybrid applications involving both document and vector-based retrieval.
+</details>
