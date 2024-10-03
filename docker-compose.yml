@@ -20,6 +20,8 @@ services:
     ports:
       - "9200:9200"
       - "9600:9600"
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
     deploy:
       resources:
         limits:
@@ -46,3 +48,5 @@ services:
     depends_on:
       - opensearch
 
+volumes:
+  opensearch-data:
